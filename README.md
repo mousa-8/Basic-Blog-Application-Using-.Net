@@ -22,12 +22,17 @@ Task 3: Blog Feedback
 
 Run this on package manager console to avoid c#compiler exe file not found error
 
+
 PM> Uninstall-package Microsoft.CodeDom.Providers.DotNetCompilerPlatform
+
+
 PM> Uninstall-package Microsoft.Net.Compilers
 
 
 Remarks
 
 comment section is crude as the page reloads every time a change is made
+
 error handling not ok
+
 [authorize] attribute not used

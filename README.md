@@ -36,3 +36,5 @@ comment section is crude as the page reloads every time a change is made
 error handling not ok
 
 [authorize] attribute not used
+
+string manipulation od comment ids need improvement

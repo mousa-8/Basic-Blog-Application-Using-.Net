@@ -1,0 +1,193 @@
+﻿
+@*@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@model PIP.Models.AddBLogViewModel
+
+<html>
+@functions{
+            public int space(double id)
+            {
+                int num = id.ToString().Length - (((int)id).ToString().Length + 1);
+                if (num == -1)
+                {
+                    num = 0;
+                }
+                return num;
+            }
+        }
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Blog</title>
+    <style>
+        table, th, td {
+            border: 0px solid black;
+            border-collapse: collapse;
+            border-radius: 5px;
+        }
+    </style>
+    <style>
+        .button {
+    border: none;
+        background-color: #FFFFFF;
+            padding: 3px 7px;
+        text-align: center;
+        text-decoration: none;
+    display: inline-block;
+        font-size: 9px;
+        font-display:block;
+    margin: 1px 1px;
+    cursor: pointer;
+    }
+
+        .button1 {
+    color: forestgreen;
+    }
+
+        .button2 {
+    color: blue;
+    }
+        .button3 {
+    color: dimgrey;
+    }
+    </style>
+</head>
+<body style="background-color:lightblue">
+    <div align="center"><h1>Comments</h1></div>
+    <table width="70%" align="center">
+        <tr style="background-color:yellow">
+            <td align="center">
+                <form method="post" action="">
+                    <label> Select Blog </label>
+                    <select name="choice">
+                        @foreach (var item in Model.contents)
+                        {
+                            <option value="@item.Id">
+                                @item.Name
+                            </option>
+                        }
+
+                    </select>
+                    <input type="submit" value="Submit" class="submit">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <table width="70%" align="center">
+        <tr style="background-color: skyblue">
+            <td>
+                @{
+
+                    if (Request["Choice"] != null)
+                    {
+                        foreach (var item in Model.contents)
+                        {
+                            if (item.Id.ToString() == Request["Choice"])
+                            {
+                                {
+                                    @item.content;
+                                    using (Html.BeginForm("Comments", "Home", new { id = item.Id }, FormMethod.Post))
+                                    {
+                                        <p align="center"><button type="submit" class="button button1">comment section >>></button></p>
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+
+            </td>
+        </tr>
+    </table>
+
+
+
+
+    <p align="center"><a class="btn btn-default" href="https://localhost:44326/Home/AddBlog">Add Blog >>></a></p>
+
+
+    <table width="90%" align="center" style="border: none; background-color: lightblue">
+        <tr>
+            <td>
+                @foreach (var item in Model.PreviousComment)
+                {
+                    if (item.blogid == Model.blogid)
+                    {
+                        <table width="100%">
+                            <tr>
+                                @if (space(item.Id) == 0)
+                                {
+                                    <hr />
+                                }
+
+                                @for (int i = 0; i < @space(item.Id); ++i)
+                                {
+                                    <td style="background-color: lightskyblue"></td>
+                                    <td style="background-color: lightskyblue"></td>
+                                    <td style="background-color: lightskyblue"></td>
+                                    <td style="background-color: lightskyblue"></td>
+                                    <td style="background-color: lightskyblue"></td>
+                                    <td style="background-color: lightskyblue"></td>
+                                }
+                                <td style="background-color:white">
+
+                                    ~<i style="color: blue; font-size: 17px;font-style:italic;font-display:block">@Html.DisplayFor(modelItem => item.Username)</i><br />
+                                    <q style="font-family:Cambria; font-size: 19px">@Html.DisplayFor(modelItem => item.Comment)</q><br />
+                                    @using (Html.BeginForm("Like", "Home", FormMethod.Post))
+                                    {
+                                        <b style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Like)</b>
+                                        @Html.HiddenFor(model => model.Id, new { Value = item.Id })
+                                        <button type="submit" class="button button1" value="like" name="button">Like</button>
+                                        <b style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Unlike)</b>
+                                        @Html.HiddenFor(model => model.Id, new { Value = item.Id })
+                                        <button type="submit" class="button button2" value="unlike" name="button">Dislike</button>
+
+                                    }
+
+                                    @using (Html.BeginForm("NestedComment", "Home", FormMethod.Post))
+                                    {
+                                        @Html.TextBoxFor(model => model.NewComment.Comment)
+                                        @Html.HiddenFor(model => model.NewComment.Id, new { Value = item.Id })
+                                        <button type="submit" class="button button3">Reply</button>
+                                    }
+
+                                </td>
+                            </tr>
+                        </table>
+                    }
+
+
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div align="center">
+                    <table width="90%">
+                        <tr>
+                            <td>
+                                @using (Html.BeginForm("Blog", "Home", FormMethod.Post))
+                                {
+                                    @Html.TextAreaFor(model => model.NewComment.Comment, new
+                               {
+                                   @style = "max-width:100%",
+                                   cols = "150",
+                                   rows = "4",
+                                   placeholder = "Leave a Message...",
+                                        @class = "form-input"
+                               })
+                                    @Html.ValidationMessageFor(model => model.NewComment.Comment)
+                                    <button type="submit">Post</button>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>*@

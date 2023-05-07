@@ -1,0 +1,111 @@
+﻿@model PIP.Models.BlogViewModel
+@functions{
+    public int space(string id)
+    {
+        int num = id.Count(x=>(x=='.'));        
+        return num;
+    }
+
+}
+@*<script>
+    function success()
+    {
+        if (document.getElementById("textsend").value === "")
+        {
+            document.getElementById('button').disabled = true;
+        }
+        else
+        {
+            document.getElementById('button').disabled = false;
+        }
+    }
+ </script>*@
+
+<table width="90%" align="center" style="border: none; background-color: floralwhite">
+    <tr>
+        <td>
+
+            @if (Session["blogid"] != null)
+            {
+                <h2 style="font-family:Calibri" align="center">History of Comments</h2>
+                foreach (var item in Model.PreviousComment)
+                {
+                    if (item.blogid == Model.blogid)
+                    {
+                        <table width="100%">
+                            <tr>
+                                @if (space(item.Id) == 0)
+                                {
+                                    <hr />
+                                }
+
+                                @for (int i = 0; i < @space(item.Id); ++i)
+                                {
+                                    <td style="background-color: floralwhite"></td>
+                                    <td style="background-color: floralwhite"></td>
+                                    <td style="background-color: floralwhite"></td>
+                                    <td style="background-color: floralwhite"></td>
+                                    <td style="background-color: floralwhite"></td>
+                                    <td style="background-color: floralwhite"></td>
+                                }
+                                <td style="background-color:white">
+
+                                    ~<i style="color: blue; font-size: 17px;font-style:italic;font-display:block">@Html.DisplayFor(modelItem => item.Username)</i><br />
+                                    <q style="font-family:Cambria; font-size: 19px">@Html.DisplayFor(modelItem => item.Comment)</q><br />
+                                    @using (Html.BeginForm("Like", "Home", FormMethod.Post))
+                                    {
+                                        <b style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Like)</b>
+                                        @Html.HiddenFor(model => model.likeid, new { Value = item.Id })
+                                        <button type="submit" class="button button1" value="like" name="button">Like</button>
+                                        <b style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Unlike)</b>
+                                        @Html.HiddenFor(model => model.likeid, new { Value = item.Id })
+                                        <button type="submit" class="button button2" value="unlike" name="button">Dislike</button>
+
+                                    }
+
+                                    @using (Html.BeginForm("NestedComment", "Home", FormMethod.Post))
+                                    {
+                                        @Html.TextBoxFor(model => model.NewComment.Comment)
+                                        @Html.HiddenFor(model => model.NewComment.Id, new { Value = item.Id })
+                                        <button type="submit" class="button button3">Reply</button>
+                                    }
+
+                                </td>
+                            </tr>
+                        </table>
+                    }
+
+
+                }
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div align="center">
+                <table width="90%">
+                    <tr>
+                        <td>
+                            @if (Session["blogid"] != null)
+                            {
+                                using (Html.BeginForm("Comment", "Home", FormMethod.Post))
+                                {
+                                    @Html.TextAreaFor(model => model.NewComment.Comment, new
+                               {
+                                   @style = "max-width:100%",
+                                   cols = "150",
+                                   rows = "4",
+                                   placeholder = "Leave a Message...",
+                                   @class = "form-input"
+                               })
+                                    @Html.ValidationMessageFor(model => model.NewComment.Comment)
+                                    <button type="submit">Post</button>
+                                }
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>

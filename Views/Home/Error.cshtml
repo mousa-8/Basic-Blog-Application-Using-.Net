@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@model PIP.Models.ComplaintsTable
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+</head>
+<body style="background-color:dimgrey">
+    <div align="center">
+        <table width="80%" align="center" style="background-color:dimgrey">
+            <tr><h1 style="color:red">Error Occured!!!</h1></tr>
+            <tr>
+                <td>
+                    @using (Html.BeginForm("ErrorComplaints", "Home", FormMethod.Post))
+                    {
+                        <br />
+                        @Html.TextAreaFor(model => model.Error_Complaints, new
+                        {
+
+                            @style = "max-width:100%",
+                            cols = "150",
+                            rows = "28",
+                         placeholder = "Leave a Complaint...",
+                            @class = "form-input"
+                        })<br />
+                        @Html.ValidationMessageFor(model => model.Error_Complaints)
+                        <button type="submit">Post</button>
+                    }
+                </td>
+            </tr>
+        </table>        
+
+    </div>
+</body>
+</html>

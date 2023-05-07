@@ -1,0 +1,62 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@model PIP.Models.RegistrationTable
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View</title>
+    <style>
+        body {
+            background-image: url('C:\PIP\PIP\Image\img.jpg');
+        }
+    </style>
+</head>
+<body style="background-color:cadetblue">
+
+    <div>
+
+        <center>
+            <br /><br /><br /><br /><br /><br />
+            <table align="center" width="40%" style="background-color:ghostwhite">
+                @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                {
+
+                    <tr style="background-color:green;height:50px">
+                        <td colspan="2" align="center"><h1 style="color:ghostwhite">User Login</h1></td>
+                    </tr>
+                    <tr style="background-color: ghostwhite; height: 70px">
+                        <td colspan="2" align="center">
+                            <b>User Name:    </b>
+                            @Html.TextBoxFor(m => m.UserName)
+                        </td>
+                    </tr>
+
+                    <tr style="background-color: ghostwhite; height: 70px">
+                        <td colspan="2" align="center">
+                            <b>Password:</b>
+                            @Html.PasswordFor(m => m.Password)
+                        </td>
+                    </tr>
+                    <tr style="background-color: ghostwhite; height: 50px">
+                        <td colspan="2" align="center">
+                            <input type="submit" value="Login" />
+                            <p align="center"><a class="btn btn-default" href="https://localhost:44326/Home/registrationpage">New User? Register Here</a></p>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+        </center>
+
+
+    </div>
+    @if (ViewBag.alert != null)
+    {
+        <script>alert("@ViewBag.alert")</script>
+    }
+</body>
+</html>

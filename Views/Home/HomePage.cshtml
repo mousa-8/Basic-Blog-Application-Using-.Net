@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@Html.Partial("topmenu")
+@model PIP.Models.FileModel
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+    <style>
+        .button {
+            border: none;
+            background-color: lightblue;
+            padding: 3px 7px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            font-display: block;
+            margin: 1px 1px;
+            cursor: pointer;
+        }
+
+        .button1 {
+            color: forestgreen;
+        }
+        .button2 {
+            color: darkred;
+            font-size:20px;
+        }
+    </style>
+</head>
+<body style="background-color: cadetblue">
+    @if (TempData["message"] != null)
+    {
+        <script>alert("@TempData["message"]")</script>
+    }
+    @if (ViewBag.alert != null)
+    {
+        <script>alert("@ViewBag.alert")</script>
+    }
+    <table width="60%" align="center" style="background-color:ghostwhite">
+        <tr>
+            <td align="center" style="background-color:forestgreen">
+                @if (Session["username"] != null)
+                {
+                    <h1 style="color:ghostwhite">Welcome @Session["fn"].ToString() @Session["ln"].ToString()</h1>
+
+                }
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <h2> Import Data </h2><br /><br />
+                @using (Html.BeginForm("HomePage", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                {
+
+                    @Html.TextBoxFor(model => model.UploadedFile, null, new { type = "file", @class = "input-file" })
+                    <input type="submit" value="Import" />
+                    <br /><br />
+                }
+
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

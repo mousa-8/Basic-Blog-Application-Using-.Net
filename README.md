@@ -16,3 +16,18 @@ Task 3: Blog Feedback
 --> Blog should be display in to the application page and user should comment on the specific blog.
 
 --> Display blogs with posted comments (history of comments). User can also reply on the any comment. Like and unlike icon button should work with counts.
+
+
+
+
+Run this on package manager console to avoid c#compiler exe file not found error
+
+PM> Uninstall-package Microsoft.CodeDom.Providers.DotNetCompilerPlatform
+PM> Uninstall-package Microsoft.Net.Compilers
+
+
+Remarks
+
+comment section is crude as the page reloads every time a change is made
+error handling not ok
+[authorize] attribute not used
